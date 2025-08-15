@@ -1,0 +1,1245 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <!-- تحسين إعدادات الـ viewport لدعم جميع الأجهزة -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+    <title>صيدلية الدكتور محمود عزت</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap');
+        :root {
+            --primary: #7f53ac; /* Gradient purple */
+            --secondary: #647dee; /* Gradient blue */
+            --accent: #f7971e;  /* Orange accent */
+            --bg: #f8fafc; /* Very light background */
+            --white: #fff;
+            --success: #43e97b;
+            --error: #ff4d6d;
+            --radius: 22px;
+            --shadow: 0 8px 32px rgba(100,125,222,0.13);
+            --input-shadow: 0 2px 8px rgba(100,125,222,0.06);
+            --transition: 0.35s cubic-bezier(.4,2,.6,1);
+            --primary-dark: #5e3a8c;
+            --secondary-dark: #4056b4;
+            --bg-gradient: linear-gradient(120deg, #f8fafc 0%, #e0e7ff 100%);
+            --main-gradient: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%);
+            --main-gradient-reverse: linear-gradient(90deg, var(--secondary) 0%, var(--primary) 100%);
+        }
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: var(--bg-gradient);
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #232946;
+            transition: background var(--transition);
+        }
+        .container {
+            background: var(--white);
+            padding: 48px 32px 38px 32px;
+            border-radius: var(--radius);
+            box-shadow: 0 10px 36px 0 rgba(100,125,222,0.18), 0 1.5px 8px rgba(0,0,0,0.05);
+            max-width: 460px;
+            width: 100%;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transition: box-shadow var(--transition), background var(--transition);
+        }
+        .container::before {
+            content: "";
+            position: absolute;
+            top: -60px;
+            right: -60px;
+            width: 180px;
+            height: 180px;
+            /* احذف الخلفية الزرقاء الباهتة */
+            /* background: radial-gradient(circle, var(--secondary-dark) 60%, transparent 100%);
+            opacity: 0.16;
+            filter: blur(2px); */
+            display: none;
+        }
+        header h1 {
+            color: var(--primary-dark);
+            margin-bottom: 8px;
+            font-size: 2.5rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            text-shadow: 0 2px 16px rgba(100,125,222,0.13);
+            background: var(--main-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        header p {
+            color: var(--secondary-dark);
+            margin-bottom: 32px;
+            font-size: 1.15rem;
+            font-weight: 600;
+        }
+        .main-btn {
+            width: 100%;
+            padding: 18px;
+            margin-bottom: 18px;
+            background: var(--main-gradient);
+            border: none;
+            color: #fff;
+            font-size: 1.18rem;
+            font-weight: 800;
+            border-radius: var(--radius);
+            cursor: pointer;
+            box-shadow: 0 4px 18px rgba(100,125,222,0.15);
+            transition: background var(--transition), box-shadow var(--transition), opacity var(--transition), transform var(--transition);
+            letter-spacing: 0.7px;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        .main-btn:last-child { margin-bottom: 0; }
+        .main-btn:hover:not(:disabled) {
+            opacity: 1;
+            background: var(--main-gradient-reverse);
+            box-shadow: 0 12px 36px rgba(100,125,222,0.22);
+            transform: translateY(-3px) scale(1.045);
+            filter: brightness(1.09);
+        }
+        .form-group {
+            margin-bottom: 22px;
+            text-align: right;
+            position: relative;
+        }
+        .form-group label {
+            font-weight: 700;
+            margin-bottom: 7px;
+            display: block;
+            color: var(--primary-dark);
+            font-size: 1.09rem;
+            letter-spacing: 0.2px;
+        }
+        .form-group input[type="text"],
+        .form-group input[type="number"],
+        .form-group textarea,
+        select#diagnosis {
+            width: 100%;
+            padding: 13px 14px;
+            border: 1.5px solid #e0e7ef;
+            border-radius: var(--radius);
+            font-size: 1.05rem;
+            font-family: 'Cairo', sans-serif;
+            box-sizing: border-box;
+            margin-bottom: 3px;
+            background: #f8fafc;
+            transition: border-color var(--transition), box-shadow var(--transition), background var(--transition);
+            box-shadow: var(--input-shadow);
+            outline: none;
+        }
+        .form-group input:focus, .form-group textarea:focus, select#diagnosis:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 14px 2px rgba(100,125,222,0.15);
+            background: #fff;
+        }
+        /* قوائم منسدلة عصرية */
+        select,
+        select#diagnosis,
+        select#anotherDiagnosis,
+        select#prescriptionType,
+        select#anotherPrescriptionType,
+        select#attachments,
+        select#anotherAttachments {
+            width: 100%;
+            padding: 14px 44px 14px 14px;
+            border: 1.7px solid #e0e7ef;
+            border-radius: var(--radius);
+            font-size: 1.13rem;
+            font-family: 'Cairo', sans-serif;
+            background: #f8fafc;
+            color: #232946;
+            box-shadow: var(--input-shadow);
+            transition: border-color var(--transition), box-shadow var(--transition), background var(--transition);
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            cursor: pointer;
+            margin-bottom: 3px;
+            outline: none;
+            position: relative;
+            background-image:
+                url("data:image/svg+xml;utf8,<svg fill='gray' height='22' viewBox='0 0 24 24' width='22' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+            background-repeat: no-repeat;
+            background-position: left 1.2rem center;
+            background-size: 1.5em;
+            direction: rtl;
+        }
+        select:focus,
+        select#diagnosis:focus,
+        select#anotherDiagnosis:focus,
+        select#prescriptionType:focus,
+        select#anotherPrescriptionType:focus,
+        select#attachments:focus,
+        select#anotherAttachments:focus {
+            border-color: var(--primary);
+            background: #fff;
+            box-shadow: 0 0 14px 2px rgba(100,125,222,0.15);
+            color: #232946;
+        }
+        select[disabled] {
+            background-color: #f0f0f0 !important;
+            color: #b0b0b0 !important;
+            cursor: not-allowed;
+            border-style: dashed;
+            opacity: 0.85;
+        }
+        select option {
+            color: #232946;
+            background: #fff;
+            font-size: 1.08rem;
+            font-family: 'Cairo', sans-serif;
+            padding: 10px 0;
+        }
+        /* إخفاء السهم الافتراضي في بعض المتصفحات */
+        select::-ms-expand {
+            display: none;
+        }
+        .error-message {
+            color: var(--error);
+            transition: color var(--transition);
+            font-size: 0.92rem;
+            display: none;
+            margin-top: 2px;
+            font-weight: 600;
+        }
+        .actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 18px;
+            justify-content: center;
+        }
+        .actions button {
+            flex: 1;
+            padding: 13px 0;
+            font-size: 1.09rem;
+            border-radius: var(--radius);
+            border: none;
+            font-weight: 800;
+            cursor: pointer;
+            transition: background var(--transition), color var(--transition), box-shadow var(--transition), transform var(--transition);
+        }
+        .btn-primary {
+            background: var(--main-gradient);
+            color: #fff;
+            box-shadow: 0 2px 8px rgba(100,125,222,0.13);
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-secondary {
+            background: linear-gradient(90deg, #f8fafc 0%, #e0e7ff 100%);
+            color: var(--primary-dark);
+            box-shadow: 0 1px 4px rgba(100,125,222,0.08);
+        }
+        .btn-primary:hover {
+            opacity: 1;
+            background: var(--main-gradient-reverse);
+            box-shadow: 0 8px 32px rgba(100,125,222,0.22);
+            transform: translateY(-2px) scale(1.04);
+            filter: brightness(1.09);
+        }
+        .btn-secondary:hover {
+            background: linear-gradient(90deg, #e0e7ff 0%, #f8fafc 100%);
+            color: #232946;
+            box-shadow: 0 4px 16px rgba(100,125,222,0.13);
+            transform: scale(1.03);
+        }
+        #loadingMessage, #successMessage, #errorMessage {
+            display: none;
+            margin-top: 18px;
+            padding: 15px;
+            border-radius: var(--radius);
+            font-size: 1.08rem;
+            font-weight: 700;
+        }
+        #successMessage {
+            background: linear-gradient(90deg, var(--success) 0%, var(--accent) 100%);
+            color: #232946;
+            box-shadow: 0 2px 12px rgba(100,125,222,0.13);
+            border: 1.5px solid #e0e7ef;
+            animation: fadeInScale 0.7s cubic-bezier(.4,2,.6,1);
+        }
+        #loadingMessage {
+            background: #e0e7ff;
+            color: var(--primary-dark);
+            border: 1.5px solid var(--primary-dark);
+            animation: fadeInScale 0.7s cubic-bezier(.4,2,.6,1);
+        }
+        #errorMessage {
+            background: #ffe0e6;
+            color: var(--error);
+            border: 1.5px solid var(--error);
+            animation: fadeInScale 0.7s cubic-bezier(.4,2,.6,1);
+        }
+        .data-view {
+            text-align: right;
+            margin-top: 18px;
+            background: linear-gradient(120deg, #f8fafc 0%, #e0e7ff 100%);
+            border-radius: var(--radius);
+            padding: 18px 14px;
+            box-shadow: 0 2px 8px rgba(100,125,222,0.10);
+            transition: box-shadow var(--transition), background var(--transition);
+        }
+        .data-view label {
+            color: var(--primary-dark);
+            font-weight: 700;
+            margin-bottom: 2px;
+            display: block;
+        }
+        .data-view .value {
+            margin-bottom: 12px;
+            font-size: 1.09rem;
+            color: #232946;
+            transition: color var(--transition);
+        }
+        .data-view .edit-mobile {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+        .data-view .edit-mobile input {
+            flex: 1;
+            padding: 8px 10px;
+            border-radius: 8px;
+            border: 1.5px solid #e0e7ef;
+            transition: border-color var(--transition), box-shadow var(--transition);
+            border-color: var(--primary);
+            box-shadow: 0 0 8px rgba(100,125,222,0.13);
+            font-size: 1rem;
+        }
+        .data-view .edit-mobile button {
+            padding: 8px 16px;
+            border-radius: 8px;
+            border: none;
+            background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%);
+            color: #fff;
+            box-shadow: 0 1px 4px rgba(100,125,222,0.10);
+            transition: background var(--transition), box-shadow var(--transition), transform var(--transition);
+            background: linear-gradient(90deg, var(--secondary) 0%, var(--primary) 100%);
+            box-shadow: 0 4px 16px rgba(100,125,222,0.13);
+            transform: scale(1.04);
+            font-weight: 700;
+            cursor: pointer;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 10px 2vw;
+                max-width: 98vw;
+                min-width: unset;
+            }
+            header h1 {
+                font-size: 1.5rem;
+            }
+            .main-btn, .btn-primary, .btn-secondary {
+                font-size: 1rem;
+                padding: 13px 0;
+            }
+            .form-group input,
+            .form-group textarea {
+                font-size: 1rem;
+                padding: 10px 10px;
+            }
+            .data-view {
+                padding: 10px 6px;
+                font-size: 0.98rem;
+            }
+            .actions {
+                flex-direction: column;
+                gap: 8px;
+            }
+            table {
+                font-size: 0.95rem;
+            }
+        }
+        @media (max-width: 400px) {
+            .container {
+                padding: 2vw 1vw;
+                max-width: 100vw;
+            }
+            header h1 {
+                font-size: 1.1rem;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInScale {
+            0% { opacity: 0; transform: scale(0.95); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+        select#diagnosis {
+            width: 100%;
+            padding: 13px 14px;
+            border: 1.5px solid #e0e7ef;
+            border-radius: var(--radius);
+            font-size: 1.09rem;
+            font-family: 'Cairo', sans-serif;
+            background: #fff;
+            color: #232946;
+            box-shadow: var(--input-shadow);
+            transition: border-color 0.3s, box-shadow 0.3s, background 0.3s;
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            cursor: pointer;
+            margin-bottom: 3px;
+            outline: none;
+            background-image:
+                none,
+                url("data:image/svg+xml;utf8,<svg fill='gray' height='18' viewBox='0 0 24 24' width='18' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+            background-repeat: no-repeat, no-repeat;
+            /* اجعل السهم أبعد عن النص */
+            background-position: left 1.5rem center, left 1.5rem center;
+            background-size: auto, 1.2em;
+            direction: rtl;
+        }
+        select#diagnosis:focus {
+            border-color: var(--primary);
+            background: #fff;
+            box-shadow: 0 0 12px 2px rgba(100,125,222,0.13);
+            color: #232946;
+        }
+        select#diagnosis[style*="var(--error)"] {
+            border-color: var(--error) !important;
+        }
+        select#diagnosis option {
+            color: #232946;
+            background: #fff;
+            font-size: 1.05rem;
+            font-family: 'Cairo', sans-serif;
+            padding: 8px 0;
+        }
+        select#anotherDiagnosis {
+            width: 100%;
+            padding: 13px 14px;
+            border: 1.5px solid #e0e7ef;
+            border-radius: var(--radius);
+            font-size: 1.09rem;
+            font-family: 'Cairo', sans-serif;
+            background: #fff;
+            color: #232946;
+            box-shadow: var(--input-shadow);
+            transition: border-color 0.3s, box-shadow 0.3s, background 0.3s;
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            cursor: pointer;
+            margin-bottom: 3px;
+            outline: none;
+            background-image:
+                none,
+                url("data:image/svg+xml;utf8,<svg fill='gray' height='18' viewBox='0 0 24 24' width='18' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+            background-repeat: no-repeat, no-repeat;
+            background-position: left 1.5rem center, left 1.5rem center;
+            background-size: auto, 1.2em;
+            direction: rtl;
+        }
+        select#anotherDiagnosis:focus {
+            border-color: var(--primary);
+            background: #fff;
+            box-shadow: 0 0 12px 2px rgba(100,125,222,0.13);
+            color: #232946;
+        }
+        select#anotherDiagnosis[style*="var(--error)"] {
+            border-color: var(--error) !important;
+        }
+        select#anotherDiagnosis option {
+            color: #232946;
+            background: #fff;
+            font-size: 1.05rem;
+            font-family: 'Cairo', sans-serif;
+            padding: 8px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>صيدلية د. محمود عزت</h1>
+            <p>اختر الخدمة المطلوبة</p>
+        </header>
+        <div id="mainMenu">
+            <button class="main-btn" id="sendPrescriptionBtn">إرسال الروشتة</button>
+            <button class="main-btn" id="inquireBtn">الاستعلام عن حالة الروشتة</button>
+        </div>
+        <form id="prescriptionForm" style="display:none;">
+            <div class="form-group">
+                <label for="customerName">اسم العميل الثلاثي</label>
+                <input type="text" id="customerName" name="customerName" placeholder="مثال: أحمد محمد علي" autocomplete="off">
+                <small class="error-message" id="nameError">يجب إدخال الاسم الثلاثي (حروف فقط).</small>
+            </div>
+            <div class="form-group">
+                <label for="insuranceId">رقم كود التأمين (8 أرقام)</label>
+                <input type="text" id="insuranceId" name="insuranceId" maxlength="8" autocomplete="off" inputmode="numeric" pattern="\d*">
+                <small class="error-message" id="idError">يجب إدخال 8 أرقام فقط.</small>
+            </div>
+            <div class="form-group">
+                <label for="mobileNumber">رقم الموبايل</label>
+                <input type="text" id="mobileNumber" name="mobileNumber" maxlength="11" autocomplete="off" placeholder="01XXXXXXXXX" inputmode="numeric" pattern="\d*">
+                <small class="error-message" id="mobileError">يجب إدخال رقم موبايل صحيح (11 رقم يبدأ بـ 01).</small>
+            </div>
+            <div class="form-group">
+                <label for="diagnosis">التخصص</label>
+                <select id="diagnosis" name="diagnosis">
+                    <option value="">اختر التخصص</option>
+                    <option>باطنة</option>
+                    <option>عظام</option>
+                    <option>جراحة</option>
+                    <option>انف واذن وحنجرة</option>
+                    <option>صدرية</option>
+                    <option>جلدية</option>
+                    <option>عيون</option>
+                    <option>قلب واوعية دموية</option>
+                    <option>مخ واعصاب</option>
+                    <option>نفسية وعصبية</option>
+                    <option>تناسلية وامراض ذكورة</option>
+                    <option>نساء وولادة</option>
+                    <option>مسالك بولية</option>
+                    <option>اسنان</option>
+                    <option>اطفال</option>
+                    <option>اورام</option>
+                </select>
+                <small class="error-message" id="diagnosisError">يرجى اختيار التخصص.</small>
+            </div>
+            <div class="form-group">
+                <label for="prescriptionType">نوع الصرف</label>
+                <select id="prescriptionType" name="prescriptionType">
+                    <option value="">اختر نوع الصرف</option>
+                    <option value="روشتة عادية">روشتة عادية</option>
+                    <option value="علاج شهري">علاج شهري</option>
+                </select>
+                <small class="error-message" id="prescriptionTypeError">يرجى اختيار نوع الصرف.</small>
+            </div>
+            <div class="form-group">
+                <label for="attachments">المرفقات</label>
+                <select id="attachments" name="attachments" disabled>
+                    <option value="لا يوجد مرفقات">لا يوجد مرفقات</option>
+                    <option value="تحاليل">تحاليل</option>
+                    <option value="تقارير">تقارير</option>
+                    <option value="تحاليل وتقارير">تحاليل وتقارير</option>
+                </select>
+                <small class="error-message" id="attachmentsError" style="display:none;">يرجى اختيار المرفقات.</small>
+                <div id="attachmentsNote" style="color:var(--error);font-weight:700;display:none;margin-top:4px;">
+                    يرجى ارسال ما اختارته على الواتس اب
+                </div>
+            </div>
+            <div class="actions">
+                <button type="button" class="btn-primary" id="reviewBtn">مراجعة البيانات</button>
+                <button type="button" class="btn-secondary" id="cancelFormBtn">إلغاء</button>
+            </div>
+        </form>
+        <div id="reviewSection" style="display:none;">
+            <h3 style="color:var(--primary);margin-bottom:18px;">مراجعة البيانات</h3>
+            <div class="data-view" id="reviewData"></div>
+            <div class="actions">
+                <button class="btn-secondary" id="editBtn">تعديل البيانات</button>
+                <button class="btn-primary" id="saveBtn">حفظ البيانات</button>
+            </div>
+        </div>
+        <div id="anotherPrescriptionSection" style="display:none;">
+            <div style="margin:18px 0;font-size:1.1rem;color:var(--primary);font-weight:700;">
+                هل لديك روشتة أخرى تريد إدخالها؟
+            </div>
+            <div class="actions">
+                <button class="btn-primary" id="addAnotherBtn">نعم</button>
+                <button class="btn-secondary" id="finishBtn">لا</button>
+            </div>
+        </div>
+        <!-- قسم إدخال روشتة أخرى مع بيانات ثابتة -->
+        <div id="anotherFormSection" style="display:none;">
+            <h3 style="color:var(--primary);margin-bottom:18px;">إدخال روشتة أخرى لنفس العميل</h3>
+            <div class="data-view" id="anotherDataView">
+                <label>اسم العميل:</label>
+                <div class="value" id="lockedCustomerName"></div>
+                <label>رقم الكود التأميني:</label>
+                <div class="value" id="lockedInsuranceId"></div>
+                <label>رقم الموبايل:</label>
+                <div class="value" id="lockedMobileNumber"></div>
+            </div>
+            <form id="anotherPrescriptionForm">
+                <div class="form-group">
+                    <label for="anotherDiagnosis">التخصص</label>
+                    <select id="anotherDiagnosis" name="anotherDiagnosis">
+                        <option value="">اختر التخصص</option>
+                        <option>باطنة</option>
+                        <option>عظام</option>
+                        <option>جراحة</option>
+                        <option>انف واذن وحنجرة</option>
+                        <option>صدرية</option>
+                        <option>جلدية</option>
+                        <option>عيون</option>
+                        <option>قلب واوعية دموية</option>
+                        <option>مخ واعصاب</option>
+                        <option>نفسية وعصبية</option>
+                        <option>تناسلية وامراض ذكورة</option>
+                        <option>نساء وولادة</option>
+                        <option>مسالك بولية</option>
+                        <option>اسنان</option>
+                        <option>اطفال</option>
+                        <option>اورام</option>
+                    </select>
+                    <small class="error-message" id="anotherDiagnosisError">يرجى اختيار التخصص.</small>
+                </div>
+                <div class="form-group">
+                    <label for="anotherPrescriptionType">نوع الصرف</label>
+                    <select id="anotherPrescriptionType" name="anotherPrescriptionType">
+                        <option value="">اختر نوع الصرف</option>
+                        <option value="روشتة عادية">روشتة عادية</option>
+                        <option value="علاج شهري">علاج شهري</option>
+                    </select>
+                    <small class="error-message" id="anotherPrescriptionTypeError">يرجى اختيار نوع الصرف.</small>
+                </div>
+                <div class="form-group">
+                    <label for="anotherAttachments">المرفقات</label>
+                    <select id="anotherAttachments" name="anotherAttachments" disabled>
+                        <option value="لا يوجد مرفقات">لا يوجد مرفقات</option>
+                        <option value="تحاليل">تحاليل</option>
+                        <option value="تقارير">تقارير</option>
+                        <option value="تحاليل وتقارير">تحاليل وتقارير</option>
+                    </select>
+                    <small class="error-message" id="anotherAttachmentsError" style="display:none;">يرجى اختيار المرفقات.</small>
+                    <div id="anotherAttachmentsNote" style="color:var(--error);font-weight:700;display:none;margin-top:4px;">
+                        يرجى ارسال ما اختارته على الواتس اب
+                    </div>
+                </div>
+                <div class="actions">
+                    <button type="button" class="btn-primary" id="saveAnotherBtn">حفظ الروشتة</button>
+                    <button type="button" class="btn-secondary" id="cancelAnotherBtn">إلغاء</button>
+                </div>
+            </form>
+        </div>
+        <div id="inquireSection" style="display:none;">
+            <form id="inquireForm">
+                <div class="form-group">
+                    <label for="inquireCode">رقم كود التأمين (8 أرقام)</label>
+                    <input type="text" id="inquireCode" maxlength="8" autocomplete="off" inputmode="numeric" pattern="\d*">
+                    <small class="error-message" id="inquireCodeError">يجب إدخال 8 أرقام فقط.</small>
+                </div>
+                <div class="actions">
+                    <button type="submit" class="btn-primary">بحث</button>
+                    <button type="button" class="btn-secondary" id="cancelInquireBtn">إلغاء</button>
+                </div>
+            </form>
+            <div id="inquireResult" style="display:none;"></div>
+        </div>
+        <div id="loadingMessage"><p>جاري معالجة الطلب...</p></div>
+        <div id="successMessage"><p>✅ تم حفظ البيانات بنجاح!</p><button class="main-btn" id="backToHomeBtn">العودة للرئيسية</button></div>
+        <div id="errorMessage"></div>
+    </div>
+    <script>
+        // --- إعدادات Google Apps Script ---
+        // تأكد أن هذا الرابط هو نفس رابط السكريبت الذي يدعم الاستعلام
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbymCsKGX4Y_ZJ-AUxHziiIOZpfgbG_SdjPso-CwOsI2Z8v76FIeqhZ9H3vWBzdaEyzY/exec";
+
+        // دالة لتحويل الأرقام للغة العربية
+        function toArabicDigits(str) {
+            return str.replace(/\d/g, d => '٠١٢٣٤٥٦٧٨٩'[d]);
+        }
+
+        // دالة للحصول على اسم اليوم بالعربي
+        function getArabicDayName(date) {
+            const days = ['الأحد','الاثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت'];
+            return days[date.getDay()];
+        }
+
+        // دالة للحصول على الوقت بتنسيق 12 ساعة وأرقام عربية
+        function getArabicTime(date) {
+            let hours = date.getHours();
+            const minutes = date.getMinutes();
+            const ampm = hours >= 12 ? 'م' : 'ص';
+            hours = hours % 12;
+            hours = hours ? hours : 12;
+            return toArabicDigits(`${hours}:${minutes.toString().padStart(2,'0')} ${ampm}`);
+        }
+
+        // دالة للحصول على التاريخ أرقام عربية
+        function getArabicDate(date) {
+            const y = date.getFullYear();
+            const m = (date.getMonth()+1).toString().padStart(2,'0');
+            const d = date.getDate().toString().padStart(2,'0');
+            return toArabicDigits(`${y}/${m}/${d}`);
+        }
+
+        // عناصر الصفحة
+        const mainMenu = document.getElementById('mainMenu');
+        const prescriptionForm = document.getElementById('prescriptionForm');
+        const reviewSection = document.getElementById('reviewSection');
+        const reviewData = document.getElementById('reviewData');
+        const inquireSection = document.getElementById('inquireSection');
+        const inquireForm = document.getElementById('inquireForm');
+        const inquireResult = document.getElementById('inquireResult');
+        const loadingMessage = document.getElementById('loadingMessage');
+        const successMessage = document.getElementById('successMessage');
+        const errorMessage = document.getElementById('errorMessage');
+        const backToHomeBtn = document.getElementById('backToHomeBtn');
+        const addAnotherBtn = document.getElementById('addAnotherBtn');
+        const finishBtn = document.getElementById('finishBtn');
+
+        // عناصر النموذج
+        const customerName = document.getElementById('customerName');
+        const insuranceId = document.getElementById('insuranceId');
+        const mobileNumber = document.getElementById('mobileNumber');
+        const diagnosis = document.getElementById('diagnosis');
+        const prescriptionType = document.getElementById('prescriptionType');
+        const attachments = document.getElementById('attachments');
+        // رسائل الخطأ
+        const nameError = document.getElementById('nameError');
+        const idError = document.getElementById('idError');
+        const mobileError = document.getElementById('mobileError');
+        const diagnosisError = document.getElementById('diagnosisError');
+        const inquireCode = document.getElementById('inquireCode');
+        const inquireCodeError = document.getElementById('inquireCodeError');
+
+        // متغيرات لتخزين بيانات العميل عند إدخال روشتة أخرى
+        let lockedName = "";
+        let lockedId = "";
+        let lockedMobile = "";
+
+        // --- عرض وإخفاء الأقسام ---
+        function showSection(section) {
+            mainMenu.style.display = section === 'main' ? 'block' : 'none';
+            prescriptionForm.style.display = section === 'form' ? 'block' : 'none';
+            reviewSection.style.display = section === 'review' ? 'block' : 'none';
+            inquireSection.style.display = section === 'inquire' ? 'block' : 'none';
+            anotherPrescriptionSection.style.display = section === 'another' ? 'block' : 'none';
+            anotherFormSection.style.display = section === 'anotherForm' ? 'block' : 'none';
+            loadingMessage.style.display = 'none';
+            successMessage.style.display = 'none';
+            errorMessage.style.display = 'none';
+        }
+
+        // --- تحقق من صحة البيانات ---
+        function validateName() {
+            const val = customerName.value.trim();
+            const words = val.split(' ').filter(w => w.length > 0);
+            const isValid = words.length >= 3 && /^[\u0600-\u06FF\s]+$/.test(val);
+            nameError.style.display = isValid ? 'none' : 'block';
+            customerName.style.borderColor = isValid ? '#ccc' : 'var(--error)';
+            return isValid;
+        }
+        function validateId() {
+            const val = insuranceId.value.trim();
+            const isValid = /^\d{8}$/.test(val);
+            idError.style.display = isValid ? 'none' : 'block';
+            insuranceId.style.borderColor = isValid ? '#ccc' : 'var(--error)';
+            return isValid;
+        }
+        function validateMobile() {
+            const val = mobileNumber.value.trim();
+            const isValid = /^01\d{9}$/.test(val);
+            mobileError.style.display = isValid ? 'none' : 'block';
+            mobileNumber.style.borderColor = isValid ? '#ccc' : 'var(--error)';
+            return isValid;
+        }
+        function validateDiagnosis() {
+            const isValid = diagnosis.value !== '';
+            diagnosisError.style.display = isValid ? 'none' : 'block';
+            diagnosis.style.borderColor = isValid ? '#ccc' : 'var(--error)';
+            return isValid;
+        }
+        function validatePrescriptionType() {
+            const isValid = prescriptionType.value !== '';
+            prescriptionTypeError.style.display = isValid ? 'none' : 'block';
+            prescriptionType.style.borderColor = isValid ? '#ccc' : 'var(--error)';
+            return isValid;
+        }
+        function validateAttachments() {
+            // فقط إذا كانت القائمة مفعلة
+            if (attachments.disabled) return true;
+            const isValid = attachments.value !== '';
+            attachmentsError.style.display = isValid ? 'none' : 'block';
+            attachments.style.borderColor = isValid ? '#ccc' : 'var(--error)';
+            return isValid;
+        }
+        function validateForm() {
+            return validateName() & validateId() & validateMobile() & validateDiagnosis() & validatePrescriptionType() & validateAttachments();
+        }
+        customerName.addEventListener('input', validateName);
+        insuranceId.addEventListener('input', validateId);
+        mobileNumber.addEventListener('input', validateMobile);
+        diagnosis.addEventListener('input', validateDiagnosis);
+        prescriptionType.addEventListener('change', function() {
+            if (prescriptionType.value === 'علاج شهري') {
+                attachments.value = "لا يوجد مرفقات";
+                attachments.disabled = true;
+                attachmentsNote.style.display = 'none';
+            } else if (prescriptionType.value === 'روشتة عادية') {
+                attachments.disabled = false;
+            } else {
+                attachments.disabled = true;
+                attachments.value = "لا يوجد مرفقات";
+                attachmentsNote.style.display = 'none';
+            }
+            validatePrescriptionType();
+            validateAttachments();
+        });
+        attachments.addEventListener('change', function() {
+            if (["تحاليل", "تقارير", "تحاليل وتقارير"].includes(attachments.value)) {
+                attachmentsNote.style.display = 'block';
+            } else {
+                attachmentsNote.style.display = 'none';
+            }
+            validateAttachments();
+        });
+
+        // منع كتابة أرقام في الاسم
+        customerName.addEventListener('keypress', e => { if (/\d/.test(e.key)) e.preventDefault(); });
+        // منع كتابة حروف في الكود
+        insuranceId.addEventListener('keypress', e => { if (/\D/.test(e.key)) e.preventDefault(); });
+        // منع كتابة حروف في الموبايل
+        mobileNumber.addEventListener('keypress', e => { if (/\D/.test(e.key)) e.preventDefault(); });
+        // منع كتابة حروف في التشخيص
+        diagnosis.addEventListener('keypress', e => { if (/\d/.test(e.key)) e.preventDefault(); });
+
+        // --- الصفحة الرئيسية ---
+        document.getElementById('sendPrescriptionBtn').onclick = () => {
+            prescriptionForm.reset();
+            showSection('form');
+        };
+        document.getElementById('inquireBtn').onclick = () => {
+            inquireForm.reset();
+            inquireResult.style.display = 'none';
+            showSection('inquire');
+        };
+
+        // --- إلغاء ---
+        document.getElementById('cancelFormBtn').onclick = () => showSection('main');
+        document.getElementById('cancelInquireBtn').onclick = () => showSection('main');
+
+        // --- مراجعة البيانات ---
+        document.getElementById('reviewBtn').onclick = function() {
+            if (!validateForm()) return;
+            reviewData.innerHTML =
+                `<label>اسم العميل:</label><div class="value">${customerName.value}</div>
+                <label>رقم الكود التأميني:</label><div class="value">${insuranceId.value}</div>
+                <label>رقم الموبايل:</label><div class="value">${mobileNumber.value}</div>
+                <label>التخصص:</label><div class="value">${diagnosis.value}</div>
+                <label>نوع الصرف:</label><div class="value">${prescriptionType.value}</div>
+                <label>المرفقات:</label><div class="value">${attachments.value}</div>
+                <div style="margin-top:10px;color:#888;font-size:0.98rem;">هل تريد تعديل أي من هذه البيانات؟</div>`;
+            showSection('review');
+        };
+
+        // --- تعديل البيانات ---
+        document.getElementById('editBtn').onclick = function() {
+            showSection('form');
+        };
+
+        // --- حفظ البيانات ---
+        document.getElementById('saveBtn').onclick = function() {
+            loadingMessage.style.display = 'block';
+            reviewSection.style.display = 'none';
+            const now = new Date();
+            const data = {
+                date: getArabicDate(now),
+                time: getArabicTime(now),
+                day: getArabicDayName(now),
+                customerName: customerName.value.trim(),
+                insuranceId: "'" + insuranceId.value.trim(),
+                mobileNumber: "'" + mobileNumber.value.trim(),
+                diagnosis: diagnosis.value,
+                prescriptionType: prescriptionType.value, // نوع الصرف
+                status: "", // الحالة
+                rejectReason: "", // سبب الرفض
+                attachments: attachments.value // المرفقات
+                // الرقم المميز يتم توليده في السكريبت
+            };
+            // ترتيب الحقول حسب المطلوب
+            const ordered = [
+                ['date', data.date],
+                ['time', data.time],
+                ['day', data.day],
+                ['customerName', data.customerName],
+                ['insuranceId', data.insuranceId],
+                ['mobileNumber', data.mobileNumber],
+                ['diagnosis', data.diagnosis],
+                ['prescriptionType', data.prescriptionType],
+                ['status', data.status],
+                ['rejectReason', data.rejectReason],
+                ['attachments', data.attachments]
+            ];
+            fetch(SCRIPT_URL, {
+                method: 'POST',
+                mode: 'cors',
+                cache: 'no-cache',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: ordered.map(([k, v]) => encodeURIComponent(k) + '=' + encodeURIComponent(v)).join('&')
+            })
+            .then(async res => {
+                let data;
+                try {
+                    data = await res.json();
+                } catch {
+                    data = {};
+                }
+                loadingMessage.style.display = 'none';
+                if (data.result === 'success') {
+                    showSection('another');
+                } else {
+                    errorMessage.textContent = 'حدث خطأ أثناء حفظ البيانات!';
+                    errorMessage.style.display = 'block';
+                }
+            })
+            .catch(() => {
+                loadingMessage.style.display = 'none';
+                errorMessage.textContent = 'حدث خطأ أثناء حفظ البيانات!';
+                errorMessage.style.display = 'block';
+            });
+        };
+
+        // عند الضغط على "نعم" لإدخال روشتة أخرى
+        addAnotherBtn.onclick = function() {
+            // احفظ بيانات العميل
+            lockedName = customerName.value;
+            lockedId = insuranceId.value;
+            lockedMobile = mobileNumber.value;
+            // عرض البيانات في القسم الجديد
+            document.getElementById('lockedCustomerName').textContent = lockedName;
+            document.getElementById('lockedInsuranceId').textContent = lockedId;
+            document.getElementById('lockedMobileNumber').textContent = lockedMobile;
+            document.getElementById('anotherDiagnosis').value = "";
+            document.getElementById('anotherPrescriptionType').value = "";
+            document.getElementById('anotherAttachments').value = "لا يوجد مرفقات";
+            // تفعيل الحقول الثلاثة عند كل إدخال جديد
+            document.getElementById('anotherDiagnosis').disabled = false;
+            document.getElementById('anotherPrescriptionType').disabled = false;
+            document.getElementById('anotherAttachments').disabled = false;
+            document.getElementById('anotherAttachmentsNote').style.display = 'none';
+            document.getElementById('anotherDiagnosisError').style.display = 'none';
+            document.getElementById('anotherPrescriptionTypeError').style.display = 'none';
+            showSection('anotherForm');
+        };
+
+        // تفعيل أو تعطيل المرفقات حسب نوع الروشتة في الروشتة الأخرى
+        const anotherPrescriptionType = document.getElementById('anotherPrescriptionType');
+        const anotherAttachments = document.getElementById('anotherAttachments');
+        const anotherAttachmentsNote = document.getElementById('anotherAttachmentsNote');
+        anotherPrescriptionType.addEventListener('change', function() {
+            if (anotherPrescriptionType.value === 'علاج شهري') {
+                anotherAttachments.value = "لا يوجد مرفقات";
+                anotherAttachments.disabled = true;
+                anotherAttachmentsNote.style.display = 'none';
+            } else if (anotherPrescriptionType.value === 'روشتة عادية') {
+                anotherAttachments.disabled = false;
+            } else {
+                anotherAttachments.disabled = true;
+                anotherAttachments.value = "لا يوجد مرفقات";
+                anotherAttachmentsNote.style.display = 'none';
+            }
+        });
+        anotherAttachments.addEventListener('change', function() {
+            if (["تحاليل", "تقارير", "تحاليل وتقارير"].includes(anotherAttachments.value)) {
+                anotherAttachmentsNote.style.display = 'block';
+            } else {
+                anotherAttachmentsNote.style.display = 'none';
+            }
+        });
+
+        // --- تحقق من صحة بيانات الروشتة الأخرى ---
+        function validateAnotherDiagnosis() {
+            const anotherDiagnosis = document.getElementById('anotherDiagnosis');
+            const anotherDiagnosisError = document.getElementById('anotherDiagnosisError');
+            const isValid = anotherDiagnosis.value !== '';
+            anotherDiagnosisError.style.display = isValid ? 'none' : 'block';
+            anotherDiagnosis.style.borderColor = isValid ? '#ccc' : 'var(--error)';
+            return isValid;
+        }
+        function validateAnotherPrescriptionType() {
+            const anotherPrescriptionType = document.getElementById('anotherPrescriptionType');
+            const anotherPrescriptionTypeError = document.getElementById('anotherPrescriptionTypeError');
+            const isValid = anotherPrescriptionType.value !== '';
+            anotherPrescriptionTypeError.style.display = isValid ? 'none' : 'block';
+            anotherPrescriptionType.style.borderColor = isValid ? '#ccc' : 'var(--error)';
+            return isValid;
+        }
+        function validateAnotherAttachments() {
+            const anotherAttachments = document.getElementById('anotherAttachments');
+            const anotherAttachmentsError = document.getElementById('anotherAttachmentsError');
+            if (anotherAttachments.disabled) return true;
+            const isValid = anotherAttachments.value !== '';
+            anotherAttachmentsError.style.display = isValid ? 'none' : 'block';
+            anotherAttachments.style.borderColor = isValid ? '#ccc' : 'var(--error)';
+            return isValid;
+        }
+        function validateAnotherForm() {
+            return validateAnotherDiagnosis() & validateAnotherPrescriptionType() & validateAnotherAttachments();
+        }
+
+        // --- حفظ البيانات للروشتة الأخرى ---
+        document.getElementById('saveAnotherBtn').onclick = function() {
+            if (!validateAnotherForm()) return;
+            loadingMessage.style.display = 'block';
+            anotherFormSection.style.display = 'none';
+            const now = new Date();
+            const data = {
+                date: getArabicDate(now),
+                time: getArabicTime(now),
+                day: getArabicDayName(now),
+                customerName: lockedName.trim(),
+                insuranceId: "'" + lockedId.trim(),
+                mobileNumber: "'" + lockedMobile.trim(),
+                diagnosis: document.getElementById('anotherDiagnosis').value,
+                prescriptionType: document.getElementById('anotherPrescriptionType').value,
+                status: "",
+                rejectReason: "",
+                attachments: document.getElementById('anotherAttachments').value
+            };
+            // ترتيب الحقول حسب المطلوب
+            const ordered = [
+                ['date', data.date],
+                ['time', data.time],
+                ['day', data.day],
+                ['customerName', data.customerName],
+                ['insuranceId', data.insuranceId],
+                ['mobileNumber', data.mobileNumber],
+                ['diagnosis', data.diagnosis],
+                ['prescriptionType', data.prescriptionType],
+                ['status', data.status],
+                ['rejectReason', data.rejectReason],
+                ['attachments', data.attachments]
+            ];
+            fetch(SCRIPT_URL, {
+                method: 'POST',
+                mode: 'cors',
+                cache: 'no-cache',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: ordered.map(([k, v]) => encodeURIComponent(k) + '=' + encodeURIComponent(v)).join('&')
+            })
+            .then(async res => {
+                let data;
+                try {
+                    data = await res.json();
+                } catch {
+                    data = {};
+                }
+                loadingMessage.style.display = 'none';
+                if (data.result === 'success') {
+                    showSection('another');
+                } else {
+                    errorMessage.textContent = 'حدث خطأ أثناء حفظ البيانات!';
+                    errorMessage.style.display = 'block';
+                }
+            })
+            .catch(() => {
+                loadingMessage.style.display = 'none';
+                errorMessage.textContent = 'حدث خطأ أثناء حفظ البيانات!';
+                errorMessage.style.display = 'block';
+            });
+        };
+
+        // زر إلغاء في قسم إدخال روشتة أخرى
+        document.getElementById('cancelAnotherBtn').onclick = function() {
+            showSection('another');
+        };
+
+        // --- الاستعلام عن الروشتة ---
+        inquireForm.onsubmit = function(e) {
+            e.preventDefault();
+            let code = inquireCode.value.trim();
+            const isValid = /^\d{8}$/.test(code);
+            inquireCodeError.style.display = isValid ? 'none' : 'block';
+            inquireCode.style.borderColor = isValid ? '#ccc' : 'var(--error)';
+            if (!isValid) return;
+            loadingMessage.style.display = 'block';
+            inquireResult.style.display = 'none';
+            fetch(`${SCRIPT_URL}?action=getAll&insuranceId=${encodeURIComponent(code)}`)
+                .then(res => res.json())
+                .then(data => {
+                    loadingMessage.style.display = 'none';
+                    if (data && data.result === 'success' && data.rows && data.rows.length > 0) {
+                        const rows = data.rows;
+                        // استخراج بيانات العميل من أول صف
+                        const row = rows[0];
+                        let html = `
+<div class="data-view">
+    <label>اسم العميل:</label><div class="value">${row[3]}</div>
+    <label>رقم الكود التأميني:</label><div class="value">${row[4]}</div>
+    <label>رقم الموبايل:</label><div class="value">${row[5]}</div>
+</div>
+<h3 style="color:var(--primary);margin:18px 0 10px 0;">تفاصيل الطلبات</h3>
+<div style="overflow-x:auto;">
+<table style="width:100%;border-collapse:collapse;text-align:center;background:#f6faff;border-radius:12px;">
+    <thead>
+        <tr style="background:#e0e7ef;">
+            <th style="padding:8px;">م</th>
+            <th style="padding:8px;">التخصص</th>
+            <th style="padding:8px;">نوع الصرف</th>
+            <th style="padding:8px;">الحالة</th>
+            <th style="padding:8px;">سبب الرفض</th>
+        </tr>
+    </thead>
+    <tbody>
+`;
+                        html += rows.map((r, idx) => {
+                            const diagnosis = r[6] ? r[6] : '';
+                            const prescriptionType = r[7] ? r[7] : '';
+                            const status = r[8] ? r[8].trim() : '';
+                            const rejectReason = r[9] ? r[9].trim() : '';
+                            // ألوان الحالة وسبب الرفض
+                            let statusColor = '';
+                            let rejectColor = '';
+                            if (status === 'موافقة') {
+                                statusColor = 'color:#43a047;font-weight:700;';
+                                rejectColor = (rejectReason === 'لا يوجد') ? 'color:#43a047;font-weight:700;' : '';
+                            } else if (status === 'مرفوضة' || status === 'معلقة') {
+                                statusColor = 'color:var(--error);font-weight:700;';
+                                rejectColor = 'color:var(--error);font-weight:700;';
+                            } else {
+                                statusColor = 'color:#1976d2;font-weight:700;';
+                                rejectColor = (rejectReason === 'لا يوجد') ? 'color:#1976d2;font-weight:700;' : '';
+                            }
+                            if (rejectReason === 'مرفوضة' || rejectReason === 'معلقة') {
+                                rejectColor = 'color:var(--error);font-weight:700;';
+                            }
+                            return `<tr>
+            <td style="padding:7px;">${idx + 1}</td>
+            <td style="padding:7px;">${diagnosis}</td>
+            <td style="padding:7px;">${prescriptionType}</td>
+            <td style="padding:7px;${statusColor}">
+                ${status ? status : 'قيد المراجعة'}
+            </td>
+            <td style="padding:7px;${rejectColor}">
+                ${rejectReason ? rejectReason : '-'}
+            </td>
+        </tr>`;
+                        }).join('');
+                        html += `</tbody></table></div>`;
+                        inquireResult.innerHTML = html;
+                        inquireResult.style.display = 'block';
+                    } else {
+                        inquireResult.innerHTML = '<div style="color:var(--error);font-weight:700;">لم يتم العثور على بيانات لهذا الكود.</div>';
+                        inquireResult.style.display = 'block';
+                    }
+                })
+                .catch(() => {
+                    loadingMessage.style.display = 'none';
+                    inquireResult.innerHTML = '<div style="color:var(--error);font-weight:700;">حدث خطأ أثناء البحث.</div>';
+                    inquireResult.style.display = 'block';
+                });
+        };
+
+        // عند الضغط على "لا" للانتهاء
+        finishBtn.onclick = function() {
+            // عرض رسالة النجاح ثم العودة للرئيسية بعد ثانيتين
+            showSection('none');
+            successMessage.style.display = 'block';
+            setTimeout(() => {
+                showSection('main');
+            }, 2000);
+        };
+
+        // عند الضغط على زر العودة للرئيسية في رسالة النجاح
+        backToHomeBtn.onclick = function() {
+            showSection('main');
+        };
+
+        // ترتيب الحقول في نموذج الروشتة الرئيسي
+const prescriptionFields = [
+    customerName,
+    insuranceId,
+    mobileNumber,
+    diagnosis,
+    prescriptionType,
+    attachments
+];
+
+// ترتيب الحقول في نموذج الروشتة الأخرى
+const anotherFields = [
+    document.getElementById('anotherDiagnosis'),
+    document.getElementById('anotherPrescriptionType'),
+    document.getElementById('anotherAttachments')
+];
+
+// دالة التنقل عند الضغط على ENTER
+function enableEnterNavigation(fields, saveBtnId) {
+    fields.forEach((field, idx) => {
+        field.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                if (idx < fields.length - 1) {
+                    // انتقل للحقل التالي
+                    fields[idx + 1].focus();
+                } else if (saveBtnId) {
+                    // عند آخر حقل، نفذ الحفظ مباشرة
+                    document.getElementById(saveBtnId).click();
+                }
+            }
+        });
+        // دعم زر "التالي" في كيبورد الموبايل (inputmode/enterkeyhint)
+        field.setAttribute('enterkeyhint', idx < fields.length - 1 ? 'next' : 'done');
+    });
+}
+
+// تفعيل التنقل في النماذج
+enableEnterNavigation(prescriptionFields, 'reviewBtn');
+enableEnterNavigation(anotherFields, 'saveAnotherBtn');
+
+// التنقل في نموذج الاستعلام
+const inquireCodeField = document.getElementById('inquireCode');
+inquireCodeField.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') {
+        // لا تمنع الافتراضي هنا لأن الفورم سيعمل submit تلقائياً
+        // لكن إذا أردت التنقل لزر البحث فقط:
+        // e.preventDefault();
+        // document.querySelector('#inquireForm button[type="submit"]').focus();
+    }
+});
+
+// عند فتح النموذج أو إعادة تعيينه، اجعل حقل الموبايل يبدأ بـ 01
+function setMobilePrefix() {
+    if (!mobileNumber.value.startsWith('01')) {
+        mobileNumber.value = '01';
+    }
+}
+prescriptionForm.addEventListener('reset', setMobilePrefix);
+document.getElementById('sendPrescriptionBtn').addEventListener('click', function() {
+    setTimeout(setMobilePrefix, 0);
+});
+
+// منع حذف أو تعديل أول رقمين في حقل الموبايل
+mobileNumber.addEventListener('keydown', function(e) {
+    // السماح بالأسهم، التاب، الشيفت، إلخ
+    if (
+        ['ArrowLeft', 'ArrowRight', 'Tab', 'Shift', 'Control', 'Alt', 'Meta'].includes(e.key)
+    ) return;
+    // لا تسمح بالحذف أو الرجوع للخلف في أول رقمين
+    if ((this.selectionStart <= 2) && (e.key === 'Backspace' || e.key === 'Delete')) {
+        e.preventDefault();
+    }
+});
+mobileNumber.addEventListener('input', function(e) {
+    // إذا حذف المستخدم أول رقمين أو عدلهم، أعدهم تلقائيًا
+    if (!this.value.startsWith('01')) {
+        this.value = '01' + this.value.replace(/^0+1*/, '');
+    }
+    // لا تسمح بأكثر من 11 رقم
+    if (this.value.length > 11) {
+        this.value = this.value.slice(0, 11);
+    }
+});
+
+// عند صفحة مراجعة البيانات، إذا ضغط المستخدم ENTER على الكمبيوتر (وليس موبايل)، يتم حفظ البيانات
+reviewSection.addEventListener('keydown', function(e) {
+    // تجاهل إذا كان الجهاز موبايل (شاشة صغيرة أو لمس)
+    const isMobile = /Mobi|Android|iPhone|iPad|iPod|Opera Mini|IEMobile/i.test(navigator.userAgent) || window.innerWidth < 700;
+    if (!isMobile && e.key === 'Enter') {
+        e.preventDefault();
+        document.getElementById('saveBtn').click();
+    }
+});
+    </script>
+</body>
+</html>
+</body>
+</html>
+</body>
+</html>
+</body>
+</html>
+</html>

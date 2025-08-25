@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+    <title>صيدلية الدكتور محمود عزت</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>صيدلية د. محمود عزت</h1>
+            <p>اختر الخدمة المطلوبة</p>
+        </header>
+        <div id="mainMenu">
+            <button class="main-btn" id="sendPrescriptionBtn">إرسال الروشتة</button>
+            <button class="main-btn" id="inquireBtn">الاستعلام عن حالة الروشتة</button>
+        </div>
+        <form id="prescriptionForm" style="display:none;">
+            <div class="form-group">
+                <label for="customerName">اسم العميل الثلاثي</label>
+                <input type="text" id="customerName" name="customerName" placeholder="مثال: أحمد محمد علي" autocomplete="off">
+                <small class="error-message" id="nameError">يجب إدخال الاسم الثلاثي (حروف فقط).</small>
+            </div>
+            <div class="form-group">
+                <label for="insuranceId">رقم كود التأمين (8 أرقام)</label>
+                <input type="text" id="insuranceId" name="insuranceId" maxlength="8" autocomplete="off" inputmode="numeric" pattern="\d*">
+                <small class="error-message" id="idError">يجب إدخال 8 أرقام فقط.</small>
+            </div>
+            <div class="form-group">
+                <label for="mobileNumber">رقم الموبايل</label>
+                <input type="text" id="mobileNumber" name="mobileNumber" maxlength="11" autocomplete="off" placeholder="01XXXXXXXXX" inputmode="numeric" pattern="\d*">
+                <small class="error-message" id="mobileError">يجب إدخال رقم موبايل صحيح (11 رقم يبدأ بـ 01).</small>
+            </div>
+            <div class="form-group">
+                <label for="diagnosis">التخصص</label>
+                <select id="diagnosis" name="diagnosis">
+                    <option value="">اختر التخصص</option>
+                    <option>باطنة</option>
+                    <option>عظام</option>
+                    <option>جراحة</option>
+                    <option>انف واذن وحنجرة</option>
+                    <option>صدرية</option>
+                    <option>جلدية</option>
+                    <option>عيون</option>
+                    <option>قلب واوعية دموية</option>
+                    <option>مخ واعصاب</option>
+                    <option>نفسية وعصبية</option>
+                    <option>تناسلية وامراض ذكورة</option>
+                    <option>نساء وولادة</option>
+                    <option>مسالك بولية</option>
+                    <option>اسنان</option>
+                    <option>اطفال</option>
+                    <option>اورام</option>
+                </select>
+                <small class="error-message" id="diagnosisError">يرجى اختيار التخصص.</small>
+            </div>
+            <div class="form-group">
+                <label for="prescriptionType">نوع الصرف</label>
+                <select id="prescriptionType" name="prescriptionType">
+                    <option value="">اختر نوع الصرف</option>
+                    <option value="روشتة عادية">روشتة عادية</option>
+                    <option value="علاج شهري">علاج شهري</option>
+                </select>
+                <small class="error-message" id="prescriptionTypeError">يرجى اختيار نوع الصرف.</small>
+            </div>
+            <div class="form-group">
+                <label for="attachments">المرفقات</label>
+                <select id="attachments" name="attachments" disabled>
+                    <option value="لا يوجد مرفقات">لا يوجد مرفقات</option>
+                    <option value="تحاليل">تحاليل</option>
+                    <option value="تقارير">تقارير</option>
+                    <option value="تحاليل وتقارير">تحاليل وتقارير</option>
+                </select>
+                <small class="error-message" id="attachmentsError" style="display:none;">يرجى رفع ملف واحد على الأقل إذا اخترت مرفقات.</small>
+                <span id="attachmentsNote" style="display:none;color:var(--primary-dark);font-weight:700;margin-top:4px;"></span>
+            </div>
+            <div class="actions">
+                <button type="button" class="btn-primary" id="reviewBtn">مراجعة البيانات</button>
+                <button type="button" class="btn-secondary" id="cancelFormBtn">إلغاء</button>
+            </div>
+        </form>
+        <div id="reviewSection" style="display:none;">
+            <h3 style="color:var(--primary);margin-bottom:18px;">مراجعة البيانات</h3>
+            <div class="data-view" id="reviewData"></div>
+            <div class="actions">
+                <button class="btn-secondary" id="editBtn">تعديل البيانات</button>
+                <button class="btn-primary" id="saveBtn">حفظ البيانات</button>
+            </div>
+        </div>
+        <div id="anotherPrescriptionSection" style="display:none;">
+            <div style="margin:18px 0;padding:18px 8px 14px 8px;background:#fff;border:2.5px solid #43e97b;border-radius:18px;box-shadow:0 2px 12px rgba(67,233,123,0.08);display:flex;flex-direction:column;align-items:center;">
+                <span style="font-size:2.5rem;line-height:1;">✅</span>
+                <span style="font-size:1.25rem;color:#232946;font-weight:900;margin:8px 0 4px 0;">تم حفظ البيانات بنجاح!</span>
+                <span style="font-size:1.08rem;color:#1976d2;font-weight:700;">هل تريد إرسال روشتة أخرى؟</span>
+            </div>
+            <div class="actions">
+                <button class="btn-primary" id="addAnotherBtn">نعم</button>
+                <button class="btn-secondary" id="finishBtn">لا</button>
+            </div>
+        </div>
+        <!-- قسم إدخال روشتة أخرى مع بيانات ثابتة -->
+        <div id="anotherFormSection" style="display:none;">
+            <h3 style="color:var(--primary);margin-bottom:18px;">إدخال روشتة أخرى لنفس العميل</h3>
+            <div class="data-view" id="anotherDataView">
+                <label>اسم العميل:</label>
+                <div class="value" id="lockedCustomerName"></div>
+                <label>رقم الكود التأميني:</label>
+                <div class="value" id="lockedInsuranceId"></div>
+                <label>رقم الموبايل:</label>
+                <div class="value" id="lockedMobileNumber"></div>
+            </div>
+            <form id="anotherPrescriptionForm">
+                <div class="form-group">
+                    <label for="anotherDiagnosis">التخصص</label>
+                    <select id="anotherDiagnosis" name="anotherDiagnosis">
+                        <option value="">اختر التخصص</option>
+                        <option>باطنة</option>
+                        <option>عظام</option>
+                        <option>جراحة</option>
+                        <option>انف واذن وحنجرة</option>
+                        <option>صدرية</option>
+                        <option>جلدية</option>
+                        <option>عيون</option>
+                        <option>قلب واوعية دموية</option>
+                        <option>مخ واعصاب</option>
+                        <option>نفسية وعصبية</option>
+                        <option>تناسلية وامراض ذكورة</option>
+                        <option>نساء وولادة</option>
+                        <option>مسالك بولية</option>
+                        <option>اسنان</option>
+                        <option>اطفال</option>
+                        <option>اورام</option>
+                    </select>
+                    <small class="error-message" id="anotherDiagnosisError">يرجى اختيار التخصص.</small>
+                </div>
+                <div class="form-group">
+                    <label for="anotherPrescriptionType">نوع الصرف</label>
+                    <select id="anotherPrescriptionType" name="anotherPrescriptionType">
+                        <option value="">اختر نوع الصرف</option>
+                        <option value="روشتة عادية">روشتة عادية</option>
+                        <option value="علاج شهري">علاج شهري</option>
+                    </select>
+                    <small class="error-message" id="anotherPrescriptionTypeError">يرجى اختيار نوع الصرف.</small>
+                </div>
+                <div class="form-group">
+                    <label for="anotherAttachments">المرفقات</label>
+                    <select id="anotherAttachments" name="anotherAttachments" disabled>
+                        <option value="لا يوجد مرفقات">لا يوجد مرفقات</option>
+                        <option value="تحاليل">تحاليل</option>
+                        <option value="تقارير">تقارير</option>
+                        <option value="تحاليل وتقارير">تحاليل وتقارير</option>
+                    </select>
+                    <small class="error-message" id="anotherAttachmentsError" style="display:none;">يرجى رفع ملف واحد على الأقل إذا اخترت مرفقات.</small>
+                </div>
+                <div class="actions">
+                    <button type="button" class="btn-primary" id="saveAnotherBtn">حفظ الروشتة</button>
+                    <button type="button" class="btn-secondary" id="cancelAnotherBtn">إلغاء</button>
+                </div>
+            </form>
+        </div>
+        <div id="inquireSection" style="display:none;">
+            <form id="inquireForm">
+                <div class="form-group">
+                    <label for="inquireCode">رقم كود التأمين (8 أرقام)</label>
+                    <input type="text" id="inquireCode" maxlength="8" autocomplete="off" inputmode="numeric" pattern="\d*">
+                    <small class="error-message" id="inquireCodeError">يجب إدخال 8 أرقام فقط.</small>
+                </div>
+                <div class="actions">
+                    <button type="submit" class="btn-primary">بحث</button>
+                    <button type="button" class="btn-secondary" id="cancelInquireBtn">إلغاء</button>
+                </div>
+            </form>
+            <div id="inquireResult" style="display:none;"></div>
+        </div>
+        <div id="loadingMessage"><p>جاري معالجة الطلب...</p></div>
+        <div id="successMessage"><p>✅ تم حفظ البيانات بنجاح!</p><button class="main-btn" id="backToHomeBtn">العودة للرئيسية</button></div>
+        <div id="errorMessage"></div>
+    </div>
+    <script src="main.js"></script>
+</body>
+</html>

@@ -2,7 +2,7 @@
 
         // --- إعدادات Google Apps Script ---
         // تأكد أن هذا الرابط هو نفس رابط السكريبت الذي يدعم الاستعلام
-        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxgC3-Np9-xTvuc1CnZ86-L0WTsPYbjqX1wuYMaUGJEYT5MdL-O-9b50dBO4F01wvXg/exec";
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzSK2Id5lpZOVW3-SsYUeEjEjiC6Gc8LDveKkZmj775fL02i3uygpF1ZKDhNJx3Hd4l/exec";
         
         // دالة لتحويل الأرقام للغة العربية
         function toArabicDigits(str) {
@@ -905,4 +905,5 @@ reviewSection.addEventListener('keydown', function(e) {
         e.preventDefault();
         document.getElementById('saveBtn').click();
     }
+
 });
